@@ -4,7 +4,7 @@ This repository contains the implementation of **KnowGPT** with enhancements for
 
 📌 Paper Reference:  
 Zhang et al., *KnowGPT: Knowledge Graph based Prompting for Large Language Models*, NeurIPS 2024.  
-[Original Repo](https://github.com/GraphPrompting/KnowGPT](https://openreview.net/forum?id=PacBluO5m7&referrer=%5Bthe%20profile%20of%20Daochen%20Zha%5D(%2Fprofile%3Fid%3D~Daochen_Zha1)))
+[Original Paper](https://openreview.net/forum?id=PacBluO5m7&referrer=%5Bthe%20profile%20of%20Daochen%20Zha%5D(%2Fprofile%3Fid%3D~Daochen_Zha1))
 
 ---
 
