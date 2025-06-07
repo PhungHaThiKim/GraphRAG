@@ -33,11 +33,6 @@ LLM: GPT-3.5 / GPT-4 (via OpenAI API)
 - `scikit-learn`
 - `openai`
 
-```bash
-git clone https://github.com/PhungHaThiKim/GraphRAG.git
-cd GraphRAG
-pip install -r requirements.txt
-
 Notes: You must also export your OpenAI API key!
 
 📦 System Architecture
