@@ -49,4 +49,4 @@ The project is structured into modular components:
 - `PromptConstructorMAB`: Manages multiple prompt templates and selects the best one using multi-armed bandit strategy.
 
 👉 The overall architecture of these core classes and their interactions is illustrated in the UML diagram below:
-![Class Architecture](experiments/class_architecture_uml.png)
+![Class Architecture]([experiments/class_architecture_uml.png](https://github.com/PhungHaThiKim/GraphRAG/blob/main/class_architecture_uml.png))
