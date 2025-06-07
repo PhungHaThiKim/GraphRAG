@@ -32,6 +32,8 @@ LLM: GPT-3.5 / GPT-4 (via OpenAI API)
 - `networkx`
 - `scikit-learn`
 - `openai`
+- 
+If you want to run/train on **google colab**, you can get the file in the file **KnowGPT_colab.ipynb**.
 
 Notes: You must also export your OpenAI API key!
 
