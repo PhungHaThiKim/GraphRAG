@@ -48,3 +48,8 @@ The project is structured into modular components:
 👉 The overall architecture of these core classes and their interactions is illustrated in the UML diagram below:
 ![Class Architecture](class_architecture_uml.png)
 
+👉 Prompt Debug Output for Graph-Augmented QA:
+![Sample 1](prompting_sample1.png)
+![Sample 2](prompting_sample2.png)
+![Sample 3](prompting_sample3.png)
+
