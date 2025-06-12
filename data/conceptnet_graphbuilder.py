@@ -8,25 +8,27 @@ class ConceptNetGraphBuilder:
     def __init__(self, triples: pd.DataFrame):
         """
         Initialize the graph builder with a DataFrame of ConceptNet triples.
-
-        Args:
-            triples (pd.DataFrame): DataFrame with columns ['relation', 'head', 'tail']
+        Required columns: ['relation', 'head', 'tail', 'weight']
         """
-        required_cols = {'relation', 'head', 'tail'}
+        required_cols = {'relation', 'head', 'tail', 'weight'}
         if not required_cols.issubset(triples.columns):
-            raise ValueError("DataFrame must contain columns: 'relation', 'head', 'tail'")
-
+            raise ValueError("DataFrame must contain columns: 'relation', 'head', 'tail', 'weight'")
+        
         self.triples = triples
         self.graph = nx.MultiDiGraph()  # Directed multigraph to support multiple relations
 
     def build_graph(self):
         """
         Build the directed multigraph from ConceptNet triples.
-        Each edge is labeled with the relation type.
+        Each edge includes relation and weight from the dataset.
         """
         for _, row in self.triples.iterrows():
-            head, relation, tail = row['head'], row['relation'], row['tail']
-            self.graph.add_edge(head, tail, relation=relation)
+            head = str(row['head']).lower().strip()
+            tail = str(row['tail']).lower().strip()
+            relation = row['relation']
+            weight = float(row['weight']) if 'weight' in row and pd.notnull(row['weight']) else 1.0
+
+            self.graph.add_edge(head, tail, relation=relation, weight=weight)
         return self.graph
 
     def get_neighbors(self, node):

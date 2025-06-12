@@ -7,7 +7,7 @@ from data.conceptnet import ConceptNet
 
 def load_or_cache_conceptnet(path: str, sample_size: int = None, cache_path: str = None) -> pd.DataFrame:
     """
-    Load ConceptNet triples from a cached pickle file if available,
+    Load ConceptNet triples with weights from a cached pickle file if available,
     otherwise process the raw TSV file and save the processed DataFrame to cache.
 
     Args:
@@ -16,31 +16,24 @@ def load_or_cache_conceptnet(path: str, sample_size: int = None, cache_path: str
         cache_path (str): Path to save or load the cached pickle file.
 
     Returns:
-        pd.DataFrame: Processed ConceptNet triples in format (relation, head, tail).
+        pd.DataFrame: Processed ConceptNet triples in format (relation, head, tail, weight).
     """
     if cache_path and os.path.exists(cache_path):
         print(f"🔄 Loading from cache: {cache_path}")
         return pd.read_pickle(cache_path)
-    
+
     print(f"📥 Loading and processing raw ConceptNet...")
     cn = ConceptNet(path, max_edges=sample_size)
-    df = cn.load()
-    
+    df = cn.load()  # df must contain: relation, head, tail, weight
+
     if cache_path:
         df.to_pickle(cache_path)
         print(f"✅ Saved cache to: {cache_path}")
-    
+
     return df
 
 
 def print_top_prompts(log: list, top_k: int = 5) -> None:
-    """
-    Print the top-k most concise successful prompts from MAB evaluation log.
-
-    Args:
-        log (list): List of evaluation results with keys ['prompt', 'reward', ...].
-        top_k (int): Number of top prompts to print.
-    """
     good_prompts = [x for x in log if x['reward'] == 1]
     sorted_prompts = sorted(good_prompts, key=lambda x: len(x['prompt']))[:top_k]
 
@@ -53,12 +46,6 @@ def print_top_prompts(log: list, top_k: int = 5) -> None:
 
 
 def print_template_statistics(log: list) -> None:
-    """
-    Compute and display accuracy statistics per prompt template.
-
-    Args:
-        log (list): List of evaluation results, each with 'template' and 'reward' keys.
-    """
     stats = defaultdict(lambda: [0, 0])  # {template: [correct, total]}
     for row in log:
         stats[row['template']][0] += row['reward']
@@ -71,13 +58,6 @@ def print_template_statistics(log: list) -> None:
 
 
 def save_log_csv(log: list, path: str = "mab_eval_log.csv") -> None:
-    """
-    Save the evaluation log to a CSV file.
-
-    Args:
-        log (list): List of dictionaries with MAB evaluation results.
-        path (str): File path to save the CSV.
-    """
     df = pd.DataFrame(log)
     df.to_csv(path, index=False)
     print(f"✅ Log saved to {path}")
